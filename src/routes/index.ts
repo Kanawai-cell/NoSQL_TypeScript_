@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { createGame, deleteGame, getGame, updateGame } from '../controllers/game'
-import { createUser, deleteUser } from '../controllers/user'
+import { createUser, deleteUser, getUser, updateUser } from '../controllers/user'
 
 export const router = Router()
 // Pour les Jeux 
@@ -12,3 +12,5 @@ router.put('/games/:id', updateGame)
 //Pour les Users
 router.post('/users', createUser)
 router.delete('/users/:id', deleteUser)
+router.get('/users/:id', getUser)
+router.put('/users/:id', updateUser)

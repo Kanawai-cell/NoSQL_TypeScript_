@@ -24,9 +24,8 @@ export async function deleteGame(req: Request, res: Response) {
 }
 
 export async function getGame(req: Request, res: Response) {
-  console.log('Request to list game by id',  req.body)
-  let id = '61b8a48c55fc217cc8e5383e'
-  let gameToList = await GameModel.findById({ _id: id })
+  console.log('Request to list game by id',  req.params.id)
+  let gameToList = await GameModel.findOne({ _id: req.params.id })
   res.json(gameToList)
 }
 

@@ -22,3 +22,19 @@ export async function deleteUser(req: Request, res: Response) {
     res.json(deletedUser)
   }
 }
+
+export async function getUser(req: Request, res: Response) {
+    console.log('Request to list user by id',  req.params.id)
+    let userToList = await UserModel.findOne({ _id: req.params.id })
+    res.json(userToList)
+  }
+  
+  export async function updateUser(req: Request, res: Response) {
+    console.log('Request to list user by id',  req.body)
+    let userToUpdate = await UserModel.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    })
+  
+    res.json(userToUpdate)
+  }

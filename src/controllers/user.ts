@@ -38,3 +38,9 @@ export async function updateUser(req: Request, res: Response) {
   
     res.json(userToUpdate)
   }
+
+export async function findUser(req: Request, res: Response) {
+  console.log('Request to list user by id',  req.body)
+  let userToUpdate = await UserModel.find()
+  res.json(userToUpdate)
+}

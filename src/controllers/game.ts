@@ -38,3 +38,9 @@ export async function updateGame(req: Request, res: Response) {
 
   res.json(gameToUpdate)
 }
+
+export async function findGames(req: Request, res: Response) {
+  console.log('Request to list game by id',  req.body)
+  let gameToUpdate = await GameModel.find()
+  res.json(gameToUpdate)
+}

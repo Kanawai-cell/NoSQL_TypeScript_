@@ -22,3 +22,20 @@ export async function deleteGame(req: Request, res: Response) {
     res.json(deletedGame)
   }
 }
+
+export async function getGame(req: Request, res: Response) {
+  console.log('Request to list game by id',  req.body)
+  let id = '61b8a48c55fc217cc8e5383e'
+  let gameToList = await GameModel.findById({ _id: id })
+  res.json(gameToList)
+}
+
+export async function updateGame(req: Request, res: Response) {
+  console.log('Request to list game by id',  req.body)
+  let gameToUpdate = await GameModel.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  })
+
+  res.json(gameToUpdate)
+}

@@ -28,8 +28,8 @@ export async function getUser(req: Request, res: Response) {
     let userToList = await UserModel.findOne({ _id: req.params.id })
     res.json(userToList)
   }
-  
-  export async function updateUser(req: Request, res: Response) {
+
+export async function updateUser(req: Request, res: Response) {
     console.log('Request to list user by id',  req.body)
     let userToUpdate = await UserModel.findByIdAndUpdate(req.params.id, req.body, {
       new: true,

@@ -7,10 +7,10 @@ export const router = Router()
 router.post('/games', createGame)
 router.delete('/games/:id', deleteGame)
 router.get('/games/:id', getGame)
-router.put('/games/:id', updateGame)
+router.patch('/games/:id', updateGame)
 
 //Pour les Users
 router.post('/users', createUser)
 router.delete('/users/:id', deleteUser)
 router.get('/users/:id', getUser)
-router.put('/users/:id', updateUser)
+router.patch('/users/:id', updateUser)

@@ -31,7 +31,7 @@ export async function getGame(req: Request, res: Response) {
 
 export async function updateGame(req: Request, res: Response) {
   console.log('Request to list game by id',  req.body)
-  let gameToUpdate = await GameModel.findByIdAndUpdate(req.params.id, req.body, {
+  let gameToUpdate = await GameModel.findByIdAndUpdate(req.params.id, { _id: req.params.id }, {
     new: true,
     runValidators: true,
   })

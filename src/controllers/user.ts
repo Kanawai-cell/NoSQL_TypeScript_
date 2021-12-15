@@ -51,10 +51,14 @@ export async function findUser(req: Request, res: Response) {
 //New
 export async function listUserNbGames(req: Request, res: Response) {
   console.log('Request to list user by id')
-  let ToUpdate = await GameModel.aggregate(
-    _id : $addedBy,
-    "addedGames" : $sum,
-    "metacriticAverage": 
-  )
+  let ToUpdate = await GameModel.aggregate([
+  { 
+    "$group": { 
+      "_id": "$addedBy", 
+      "addedGames": {"$sum":1},
+      "metacriticAverage": {"$avg":1},
+    }  
+  }
+])
   res.json(ToUpdate)
 }

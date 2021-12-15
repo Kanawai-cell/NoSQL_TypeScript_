@@ -1,5 +1,6 @@
 import { count } from 'console'
 import { Request, Response } from 'express'
+import { GameModel } from '../models/game'
 import { UserModel, userSchema } from '../models/user'
 import { findGames } from './game'
 
@@ -50,6 +51,10 @@ export async function findUser(req: Request, res: Response) {
 //New
 export async function listUserNbGames(req: Request, res: Response) {
   console.log('Request to list user by id')
-  let ToUpdate = await UserModel.find()
+  let ToUpdate = await GameModel.aggregate(
+    _id : $addedBy,
+    "addedGames" : $sum,
+    "metacriticAverage": 
+  )
   res.json(ToUpdate)
 }

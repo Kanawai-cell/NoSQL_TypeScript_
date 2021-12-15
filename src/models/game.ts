@@ -6,6 +6,7 @@ export interface Game {
 title: string
 addedAt: Date
 addedBy?: User
+info?: Object
 }
 
 // Le schéma de validation MongoDB, basé sur l'interface
@@ -13,6 +14,7 @@ export const gameSchema = new Schema<Game>({
 title: { type: String, required: true },
 addedAt: { type: Date, default: () => new Date() },
 addedBy: Schema.Types.ObjectId,
+info: { type: Object },
 })
 
 // Le modèle des données MongoDB, basé sur l'interface

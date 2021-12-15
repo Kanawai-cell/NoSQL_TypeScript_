@@ -44,3 +44,84 @@ export async function findGames(req: Request, res: Response) {
   let gameToUpdate = await GameModel.find()
   res.json(gameToUpdate)
 }
+// New
+export async function findLastGames(req: Request, res: Response) {
+  console.log('Request the latest list game by id',  req.body)
+  let gameToUpdate = await GameModel.find().sort({_id:-1}).limit(1)
+  res.json(gameToUpdate)
+}
+
+export async function filtreGames(req: Request, res: Response) {
+  console.log('Request the latest list game by id',  req.body)
+  var title = String(req.query.title)
+  var sort = Number(req.query.sort)
+  if (sort == null) {
+    sort = 10;  
+  }
+  let gameToUpdate = await GameModel.find( { title : title } ).sort({_id:-1}).limit(sort)
+  res.json(gameToUpdate)
+}
+
+export async function findListGamesNumPage(req: Request, res: Response) {
+  console.log('Request the latest list game by id',  req.body)
+  var title = String(req.query.title)
+  var sort = Number(req.query.sort)
+  if (sort == null) {
+    sort = 10;  
+  }
+  let gameToUpdate = await GameModel.find( { title : title } ).sort({_id:-1}).limit(sort)
+  res.json(gameToUpdate)
+}
+
+export async function findListGamesUser(req: Request, res: Response) {
+  console.log('Request to list game by id user',  req.body)
+  var id = String(req.query.id)
+  let gameToUpdate = await GameModel.find({ _id: id })
+  res.json(gameToUpdate)
+}
+
+export async function AddCaracGames(req: Request, res: Response) {
+  console.log('Request to list game by id user',  req.body)
+
+  let release = req.body.release
+  let pegi = req.body.pegi
+  let metacritic = req.body.metacritic
+  let genres = req.body.genres
+
+  var gameUpdate = { 
+    release: release,
+    pegi:pegi,
+    metacritic : metacritic,
+    genres: [ genres ]
+  };
+
+  let gameToUpdate = await GameModel.findOneAndUpdate(
+      { _id: req.body.id }, 
+      { $push: { infos: gameUpdate  } }
+    )
+
+  res.json(gameToUpdate)
+}
+
+export async function UpdateCaracGames(req: Request, res: Response) {
+  console.log('Request to list game by id user',  req.body)
+
+  let release = req.body.release
+  let pegi = req.body.pegi
+  let metacritic = req.body.metacritic
+  let genres = req.body.genres
+
+  var gameUpdate = { 
+    release: release,
+    pegi:pegi,
+    metacritic : metacritic,
+    genres: [ genres ]
+  };
+
+  let gameToUpdate = await GameModel.findOneAndUpdate(
+      { _id: req.body.id }, 
+      { $push: { infos: gameUpdate  } }
+    )
+
+  res.json(gameToUpdate)
+}

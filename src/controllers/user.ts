@@ -1,3 +1,4 @@
+import { count } from 'console'
 import { Request, Response } from 'express'
 import { UserModel } from '../models/user'
 
@@ -43,4 +44,12 @@ export async function findUser(req: Request, res: Response) {
   console.log('Request to list user by id',  req.body)
   let userToUpdate = await UserModel.find()
   res.json(userToUpdate)
+}
+
+//New
+export async function listUserNbGames(req: Request, res: Response) {
+  console.log('Request to list user by id',  req.params.id)
+  let userToList = await UserModel.find({ _id: req.params.id })
+  userToList.length
+  res.json(userToList)
 }

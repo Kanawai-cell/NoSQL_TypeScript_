@@ -51,6 +51,5 @@ export async function findUser(req: Request, res: Response) {
 export async function listUserNbGames(req: Request, res: Response) {
   console.log('Request to list user by id')
   let ToUpdate = await UserModel.find()
-  
   res.json(ToUpdate)
 }

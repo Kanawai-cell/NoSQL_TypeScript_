@@ -63,6 +63,7 @@ export async function filtreGames(req: Request, res: Response) {
 }
 
 export async function findListGamesNumPage(req: Request, res: Response) {
+  /*
   console.log('Request the latest list game by id',  req.body)
   var title = String(req.query.title)
   var sort = Number(req.query.sort)
@@ -71,6 +72,36 @@ export async function findListGamesNumPage(req: Request, res: Response) {
   }
   let gameToUpdate = await GameModel.find( { title : title } ).sort({_id:-1}).limit(sort)
   res.json(gameToUpdate)
+*/
+
+  /*
+  console.log('Request to list game by id user')
+  //var id = String(req.query.id)
+  let page = Number(req.query.p)
+  let gameToUpdate = await GameModel.find().skip(page)
+  res.json(gameToUpdate)
+  */
+  
+  var perPage = 10
+  let page = Number(req.query.p)
+
+  let gameToUpdate = await GameModel.find()
+      .select('_id')
+      .limit(perPage)
+      .skip(perPage * page)
+      .sort({ _id: 'asc' })
+      
+      .exec(function(err, events) {
+        GameModel.count().exec(function(err, count) {
+            res.render('events', {
+                events: events,
+                page: page,
+                pages: count / perPage
+            })
+        })
+    }) 
+    res.json(gameToUpdate)
+  
 }
 
 export async function findListGamesUser(req: Request, res: Response) {
@@ -79,6 +110,7 @@ export async function findListGamesUser(req: Request, res: Response) {
   let page = Number(req.query.p)
   let gameToUpdate = await GameModel.find( { _addedBy: id } ).skip(page)
   res.json(gameToUpdate)
+
 }
 
 export async function AddCaracGames(req: Request, res: Response) {

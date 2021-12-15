@@ -1,6 +1,6 @@
 import { count } from 'console'
 import { Request, Response } from 'express'
-import { UserModel } from '../models/user'
+import { UserModel, userSchema } from '../models/user'
 import { findGames } from './game'
 
 export async function createUser(req: Request, res: Response) {
@@ -50,6 +50,7 @@ export async function findUser(req: Request, res: Response) {
 //New
 export async function listUserNbGames(req: Request, res: Response) {
   console.log('Request to list user by id')
-  let userToList = await UserModel.find().filter(1)
-  res.json(userToList)
+  let ToUpdate = await UserModel.find()
+  
+  res.json(ToUpdate)
 }

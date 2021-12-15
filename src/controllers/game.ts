@@ -74,29 +74,22 @@ export async function findListGamesNumPage(req: Request, res: Response) {
 }
 
 export async function findListGamesUser(req: Request, res: Response) {
-  console.log('Request to list game by id user',  req.body)
+  console.log('Request to list game by id user')
   var id = String(req.query.id)
-  let gameToUpdate = await GameModel.find({ _id: id })
+  let page = Number(req.query.p)
+  let gameToUpdate = await GameModel.find( { _addedBy: id } ).skip(page)
   res.json(gameToUpdate)
 }
 
 export async function AddCaracGames(req: Request, res: Response) {
   console.log('Request to list game by id user',  req.body)
-
-  let release = req.body.release
-  let pegi = req.body.pegi
-  let metacritic = req.body.metacritic
-  let genres = req.body.genres
-
+  let info = req.body.info
   var gameUpdate = { 
-    release: release,
-    pegi:pegi,
-    metacritic : metacritic,
-    genres: [ genres ]
+    info: info
   };
 
   let gameToUpdate = await GameModel.findOneAndUpdate(
-      { _id: req.body.id }, 
+      { _id: req.query.id }, 
       { $push: { infos: gameUpdate  } }
     )
 
@@ -120,7 +113,7 @@ export async function UpdateCaracGames(req: Request, res: Response) {
 
   let gameToUpdate = await GameModel.findOneAndUpdate(
       { _id: req.body.id }, 
-      { $push: { infos: gameUpdate  } }
+      { $push: { infos: gameUpdate } }
     )
 
   res.json(gameToUpdate)
